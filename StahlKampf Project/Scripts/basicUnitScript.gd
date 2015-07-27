@@ -7,7 +7,7 @@ export var hp = 2
 export var atk = 1 #Attack
 export var rng = 1 #Range of Attack
 
-
+var coordinates = get_pos()/80
 var active
 var currentMoves
 
@@ -33,29 +33,43 @@ func is_active():
 		return false
 	pass
 
+func terrain(x, y):
+	var tile = get_node("../TileMap").get_cell(x,y)
+	if (tile == 0): 
+		return 2
+	if (tile == 1): 
+		return 1
+	pass
+
 func _process(delta):
 	var unit_pos = get_pos()
+	coordinates = get_pos()/80
+	#Verifica quanto o terreno prejudica na movimentação
 	
 	if(Input.is_action_pressed("move_unit_down") && currentMoves>0):
-		OS.delay_usec(200)
-		unit_pos.y+=80
-		currentMoves = currentMoves - 1
 		Input.is_action_pressed("move_unit_down") = false
+		if(currentMoves - terrain(coordinates.x,coordinates.y+1) >= 0):
+			unit_pos.y+=80
+			currentMoves = currentMoves - terrain(coordinates.x,coordinates.y+1)
 		
 	if(Input.is_action_pressed("move_unit_up") && currentMoves>0):
-		unit_pos.y+=-80
-		currentMoves = currentMoves - 1
+		if(currentMoves - terrain(coordinates.x,coordinates.y-1) >= 0):
+			unit_pos.y-=80
+			currentMoves = currentMoves - terrain(coordinates.x,coordinates.y-1)
 		#OS.delay_usec(200)
 
 		
 	if(Input.is_action_pressed("move_unit_left") && currentMoves>0):
-		unit_pos.x+=-80
-		currentMoves = currentMoves - 1
+		if(currentMoves - terrain(coordinates.x-1,coordinates.y) >= 0):
+			unit_pos.x-=80
+			currentMoves = currentMoves - terrain(coordinates.x-1,coordinates.y)
 		#OS.delay_usec(200)
 		
-	if(Input.is_action_pressed("move_unit_right")&& currentMoves>0):
-		unit_pos.x+=80
-		currentMoves = currentMoves - 1
+
+	if(Input.is_action_pressed("move_unit_right") && currentMoves>0):
+		if(currentMoves - terrain(coordinates.x+1,coordinates.y) >= 0):
+			unit_pos.x+=80
+			currentMoves = currentMoves - terrain(coordinates.x+1,coordinates.y)
 		#OS.delay_usec(200)
 		
 	if(currentMoves <= 0):
