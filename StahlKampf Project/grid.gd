@@ -10,6 +10,7 @@ var movements
 var activeUnit
 var aux = 0
 var playerTurn = bool("true")
+var unitSelected = false
 
 #--------------------------------------------------------------------------------	
 
@@ -61,9 +62,11 @@ func _process(delta):
 		
 	activeUnit = units[aux]
 	var unit_pos = get_node(activeUnit).get_pos()
+	get_node("Control/Cursor").set_pos(unit_pos + Vector2(8.0,8.0))
 	
-	movements = get_node("UnitNode2d").get_moves()
-	#print("Movimentos:", movements)
+	if(!get_node(activeUnit).is_active()):
+		unitSelected = false
+		get_node("Control").show()
 
 	if(Input.is_action_pressed("change_Unit")):
 		aux = aux+1
@@ -72,6 +75,8 @@ func _process(delta):
 	
 	if(Input.is_action_pressed("select_unit")):
 		get_node(activeUnit).set_active()
+		get_node("Control").hide()
+		unitSelected = true
 	
 	"""
 	if(Input.is_action_pressed("move_unit_down") && movements>0):

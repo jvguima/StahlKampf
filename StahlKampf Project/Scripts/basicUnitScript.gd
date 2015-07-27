@@ -26,6 +26,13 @@ func set_active():
 	currentMoves = moves
 	pass
 
+func is_active():
+	if (active):
+		return true
+	else:
+		return false
+	pass
+
 func _process(delta):
 	var unit_pos = get_pos()
 	
