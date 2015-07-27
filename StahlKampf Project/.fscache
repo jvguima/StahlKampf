@@ -1,0 +1,18 @@
+::res://::1438006927
+BasicTile.scn::PackedScene::1436821235::
+BasicTileScript.gd::GDScript::1436660529::
+basicTiles.res::TileSet::1436818882::
+grass.gd::GDScript::1436660529::
+grass.res::TileSet::1436472498::
+grid.gd::GDScript::1438006927::
+grid.scn::PackedScene::1438006806::
+street.gd::GDScript::1436660529::
+::res://Scenes::1437014716
+basicUnit.scn::PackedScene::1437014716::
+grass2.0.scn::PackedScene::1436821235::
+::res://Scripts::1438006927
+basicUnitScript.gd::GDScript::1438006927::
+::res://Sprites::1436821286
+grama.png::ImageTexture::1436474558::
+icon.png::ImageTexture::1436208902::
+rua horizontal.png::ImageTexture::1436314458::
