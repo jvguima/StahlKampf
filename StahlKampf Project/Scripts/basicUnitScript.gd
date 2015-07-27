@@ -44,38 +44,33 @@ func terrain(x, y):
 func _process(delta):
 	var unit_pos = get_pos()
 	coordinates = get_pos()/80
-	#Verifica quanto o terreno prejudica na movimentação
 	
-	if(Input.is_action_pressed("move_unit_down") && currentMoves>0):
-		Input.is_action_pressed("move_unit_down") = false
-		if(currentMoves - terrain(coordinates.x,coordinates.y+1) >= 0):
-			unit_pos.y+=80
-			currentMoves = currentMoves - terrain(coordinates.x,coordinates.y+1)
-		
-	if(Input.is_action_pressed("move_unit_up") && currentMoves>0):
-		if(currentMoves - terrain(coordinates.x,coordinates.y-1) >= 0):
-			unit_pos.y-=80
-			currentMoves = currentMoves - terrain(coordinates.x,coordinates.y-1)
-		#OS.delay_usec(200)
-
-		
-	if(Input.is_action_pressed("move_unit_left") && currentMoves>0):
-		if(currentMoves - terrain(coordinates.x-1,coordinates.y) >= 0):
-			unit_pos.x-=80
-			currentMoves = currentMoves - terrain(coordinates.x-1,coordinates.y)
-		#OS.delay_usec(200)
-		
-
-	if(Input.is_action_pressed("move_unit_right") && currentMoves>0):
-		if(currentMoves - terrain(coordinates.x+1,coordinates.y) >= 0):
-			unit_pos.x+=80
-			currentMoves = currentMoves - terrain(coordinates.x+1,coordinates.y)
-		#OS.delay_usec(200)
-		
-	if(currentMoves <= 0):
+	if(currentMoves - terrain(coordinates.x,coordinates.y) < 0 or currentMoves == 0):
 		print("Out of moves")
 		active = false
 		set_process(false)
+	
+	elif(Input.is_action_pressed("move_unit_down")):
+		unit_pos.y+=80
+		currentMoves = currentMoves - terrain(coordinates.x,coordinates.y+1)
+		
+	elif(Input.is_action_pressed("move_unit_up")):
+		unit_pos.y-=80
+		currentMoves = currentMoves - terrain(coordinates.x,coordinates.y-1)
+		#OS.delay_usec(200)
+
+		
+	elif(Input.is_action_pressed("move_unit_left")):
+		unit_pos.x-=80
+		currentMoves = currentMoves - terrain(coordinates.x-1,coordinates.y)
+		#OS.delay_usec(200)
+		
+
+	elif(Input.is_action_pressed("move_unit_right")):
+		unit_pos.x+=80
+		currentMoves = currentMoves - terrain(coordinates.x+1,coordinates.y)
+		#OS.delay_usec(200)
+		
 	
 	set_pos(unit_pos)
 	
