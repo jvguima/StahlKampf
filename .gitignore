@@ -19,3 +19,11 @@
 
 # Unity3D Generated File On Crash Reports
 sysinfo.txt
+
+
+# Backups de texto
+*~
+*.swp
+
+# cache específico de máquina da Godot
+.fscache
