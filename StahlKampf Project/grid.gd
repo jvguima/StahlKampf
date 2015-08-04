@@ -5,7 +5,7 @@ extends Node2D
 
 
 var cell_size = 80
-var units = []
+var tempUits = []
 var movements 
 var activeUnit
 var aux = 0
@@ -50,6 +50,7 @@ func _input(ev):
 
 
 func _process(delta):
+	"""
 	OS.delay_msec(90)
 	
 	#for aux in range(units.size()):
@@ -78,7 +79,7 @@ func _process(delta):
 		get_node("Control").hide()
 		unitSelected = true
 	
-	"""
+	
 	if(Input.is_action_pressed("move_unit_down") && movements>0):
 		OS.delay_usec(200)
 		unit_pos.y+=80
@@ -111,12 +112,15 @@ func _process(delta):
 func _ready():
 
 	set_process_input(true)
-	set_process(true)
+	#set_process(true)
 	
 	#Inicialização do vetor de unidades
-	units.insert(0, "UnitNode2d")
-	units.insert(1, "UnitNode2d1")
-	print("Unit size:",units.size())
+	get_node("player1").add_unit(0, "../UnitNode2d")
+	get_node("player1").add_unit(1, "../UnitNode2d1")
+	
+	get_node("player1").set_playing()
+	
+	print("Unit size:", get_node("player1").get_units_size())
 	
 	#get_node("Label").set_text(y)
 	pass
